@@ -1,3 +1,15 @@
+from rest_framework import viewsets
+from rest_framework import authentication
+from .serializers import (
+    CasesSerializer,
+    ConversationSerializer,
+    CustomTextSerializer,
+    EventsSerializer,
+    HomePageSerializer,
+    MessageSerializer,
+    NotesSerializer,
+    ScheduleSerializer,
+)
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.permissions import IsAdminUser
@@ -11,7 +23,16 @@ from home.api.v1.serializers import (
     HomePageSerializer,
     UserSerializer,
 )
-from home.models import CustomText, HomePage
+from home.models import (
+    Cases,
+    Conversation,
+    CustomText,
+    Events,
+    HomePage,
+    Message,
+    Notes,
+    Schedule,
+)
 
 
 class SignupViewSet(ModelViewSet):
@@ -49,3 +70,57 @@ class HomePageViewSet(ModelViewSet):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = [IsAdminUser]
     http_method_names = ["get", "put", "patch"]
+
+
+class NotesViewSet(viewsets.ModelViewSet):
+    serializer_class = NotesSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Notes.objects.all()
+
+
+class EventsViewSet(viewsets.ModelViewSet):
+    serializer_class = EventsSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Events.objects.all()
+
+
+class MessageViewSet(viewsets.ModelViewSet):
+    serializer_class = MessageSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Message.objects.all()
+
+
+class CasesViewSet(viewsets.ModelViewSet):
+    serializer_class = CasesSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Cases.objects.all()
+
+
+class ScheduleViewSet(viewsets.ModelViewSet):
+    serializer_class = ScheduleSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Schedule.objects.all()
+
+
+class ConversationViewSet(viewsets.ModelViewSet):
+    serializer_class = ConversationSerializer
+    authentication_classes = (
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    )
+    queryset = Conversation.objects.all()
